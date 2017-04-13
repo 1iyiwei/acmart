@@ -19,10 +19,18 @@ SAMPLES = \
 	sample-sigchi.tex \
 	sample-sigchi-a.tex 
 
+EPS := $(wildcard *.eps)
+EPS = flies.eps  fly.eps  mouse.eps # rosette.eps # is broken
+
+EPS_PDF = $(EPS:%.eps=%.pdf)
 
 PDF = $(PACKAGE).pdf ${SAMPLES:%.tex=%.pdf} acmguide.pdf
 
-all:  ${PDF}
+all:  ${EPS_PDF} ${PDF}
+
+
+%.pdf : %.eps
+	epstopdf $< --outfile $@
 
 
 %.pdf:  %.dtx   $(PACKAGE).cls
@@ -76,7 +84,7 @@ clean:
 	*.dvi *.ps *.thm *.tgz *.zip *.rpi
 
 distclean: clean
-	$(RM) $(PDF) *-converted-to.pdf
+	$(RM) $(PDF) $(EPS_PDF)
 
 #
 # Archive for the distribution. Includes typeset documentation

@@ -25,3 +25,8 @@ sample-*.pdf
 *.zip
 *.rpi
 *~
+*-eps-converted-to.pdf
+flies.pdf
+fly.pdf
+mouse.pdf
+rosette.pdf
