@@ -19,6 +19,8 @@ SAMPLES = \
 	sample-sigchi.tex \
 	sample-sigchi-a.tex 
 
+SOURCES := $(wildcard *.tex)
+
 EPS := $(wildcard *.eps)
 EPS = flies.eps  fly.eps  mouse.eps # rosette.eps # is broken
 
@@ -54,7 +56,7 @@ acmguide.pdf: $(PACKAGE).dtx $(PACKAGE).cls
 %.cls:   %.ins %.dtx  
 	pdflatex $<
 
-%.pdf:  %.tex   $(PACKAGE).cls ACM-Reference-Format.bst
+%.pdf:  %.tex   $(PACKAGE).cls ACM-Reference-Format.bst $(SOURCES)
 	pdflatex $<
 	- bibtex $*
 	pdflatex $<
