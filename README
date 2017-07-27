@@ -117,3 +117,17 @@ Version 1.38    Increase default font size for SIGPLAN
 
 Version 1.39    Added \authornotemark commmand
 
+Version 1.40    Bibliography changes
+		Added processing of one-compoment ccsdesc nodes
+		Bug fixes.
+		Made the height a multiple of \baselineskip + \topskip
+		Added cleveref
+		We no longer print street address in SIGs
+
+Version 1.41    Rearranged bib files
+		Added new badges
+
+Version 1.42    Deleted ACM badges
+		Bug fixes
+
+Version 1.43    Bug fixes

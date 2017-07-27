@@ -162,6 +162,7 @@
 % \item \textsl{comment}, \url{http://www.ctan.org/pkg/comment}
 % \item \textsl{cm-super}, \url{http://www.ctan.org/pkg/cm-super}
 % \item \textsl{cmap}, \url{http://www.ctan.org/pkg/cmap}
+% \item \textsl{cleveref}, \url{http://www.ctan.org/pkg/cleveref}
 % \item \textsl{draftwatermark}, \url{http://www.ctan.org/pkg/draftwatermark}
 % \item \textsl{environ}, \url{http://www.ctan.org/pkg/environ}
 % \item \textsl{fancyhdr}, \url{http://www.ctan.org/pkg/fancyhdr}
@@ -173,7 +174,6 @@
 % \item \textsl{ifluatex}, \url{http://www.ctan.org/pkg/ifluatex}
 % \item \textsl{ifxetex}, \url{http://www.ctan.org/pkg/ifxetex}
 % \item \textsl{inconsolata}, \url{http://www.ctan.org/pkg/inconsolata}
-% \item \textsl{latex-tools}, \url{http://www.ctan.org/pkg/latex-tools}
 % \item \textsl{libertine}, \url{http://www.ctan.org/pkg/libertine}
 % \item \textsl{manyfoot}, \url{http://www.ctan.org/pkg/manyfoot}
 % \item \textsl{microtype}, \url{http://www.ctan.org/pkg/microtype}
@@ -186,6 +186,7 @@
 % \item \textsl{oberdiek}, \url{http://www.ctan.org/pkg/oberdiek}
 % \item \textsl{pdftex-def}, \url{http://www.ctan.org/pkg/pdftex-def}
 % \item \textsl{setspace}, \url{http://www.ctan.org/pkg/setspace}
+% \item \textsl{textcase}, \url{http://www.ctan.org/pkg/textcase}
 % \item \textsl{totpages}, \url{http://www.ctan.org/pkg/totpages}
 % \item \textsl{trimspaces}, \url{http://www.ctan.org/pkg/trimspaces}
 % \item \textsl{upquote}, \url{http://www.ctan.org/pkg/upquote}
@@ -240,14 +241,14 @@
 %     \midrule
 %     manuscript  & A manuscript. This is the default \\
 %   acmsmall & Small single column format, used for CIE, CSUR, JACM, JDIQ, JEA, JERIC,
-%            JETC, PACMPL, TAAS, TACCESS, TACO, TALG, TALLIP (formerly TALIP), TCPS,
+%            JETC, PACMHCI, PACMPL, TAAS, TACCESS, TACO, TALG, TALLIP (formerly TALIP), TCPS,
 %            TEAC, TECS, TIIS, TISSEC, TIST, TKDD, TMIS, TOCE, TOCHI, TOCL,
 %            TOCS, TOCT, TODAES, TODS, TOIS, TOIT, TOMACS, TOMM (formerly
 %            TOMCCAP), TOMPECS, TOMS, TOPC, TOPLAS, TOPS,
 %            TOS, TOSEM, TOSN, TRETS,
 %            TSAS, TSC, TSLP, TWEB, including special issues. \\
 %           acmlarge  & Large single column format, used for
-%           IMWUT, JOCCH, PACMHCI, POMACS, TAP, including special issues. \\
+%           IMWUT, JOCCH, POMACS, TAP, including special issues. \\
 %            acmtog   & Large double column format, used for
 %          TOG, including special issues.\\
 %           sigconf & Proceedings format for most of ACM
@@ -507,7 +508,7 @@
 % Similarly you can repeat \cs{email} command.
 %
 % You may have several authors with the same affiliation, different
-% affiliations or overlapping affiliations (author~$A_1$ is affiliated
+% affiliations, or overlapping affiliations (author~$A_1$ is affiliated
 % with institutions $I_1$ and $I_2$, while author $A_2$ is affiliated
 % with $I_2$ only, and author $A_3$ is affiliated with
 % $I_1$ and $I_3$, \ldots).  The recommended solution is to put the
@@ -576,7 +577,7 @@
 % \DescribeMacro{\country}%
 % The \cs{affiliation} and \cs{additionalaffiliation} commands are
 % further structured to interact with the metadata extraction tools.
-% Inside the this command you should use \cs{position},
+% Inside these commands you should use \cs{position},
 % \cs{institution}, \cs{department}, \cs{city}, \cs{streetaddress},
 % \cs{state}, \cs{postcode} and \cs{country} macros to indicate the
 % corresponding parts of the affiliation.  Note that in some cases
@@ -663,7 +664,7 @@
 % }
 % \end{verbatim}
 % However, the comma after postcode is unfortunate:  the address will
-% be typeset (with a SIG format) as
+% be typeset (in some formats) as
 % \begin{verbatim}
 % Fluginstitut
 % Sonenallee 17
@@ -791,7 +792,7 @@
 % \end{verbatim}
 % Note that you do not need to put the dollar sign here, just the
 % amount.  By default the price is \$15.00, unless the copyright is
-% set to |usgov| or |rightsretained|, when it is suppressed  Note that to
+% set to |usgov| or |rightsretained|, when it is suppressed.  Note that to
 % override the defaults you need to set the price \emph{after} the
 % \cs{setcopyright} command to override the default.  Also, the
 % command |\acmPrice{}| suppresses the printing of the price.
@@ -834,7 +835,7 @@
 % \begin{verbatim}
 % \acmBadgeR[http://ctuning.org/ae/ppopp2016.html]{ae-logo}
 % \end{verbatim}
-% 
+%
 %
 %
 % \DescribeMacro{\startPage}%
@@ -933,6 +934,18 @@
 %     Government. \\
 %     \texttt{cagovmixed} & Some  authors are employees of the Canadian
 %     Government. \\
+%     \texttt{licensedusgovmixed} & Some  authors are employees of the US
+%     Government, and the publication rights are licensed to ACM\@. \\
+%     \texttt{licensedcagov} & All the authors are employees of the Canadian
+%     Government, and the publication rights are licensed to ACM\@. \\
+%     \texttt{licensedcagovmixed} & Some  authors are employees of the
+%     Canadian 
+%     Government, and the publication rights are licensed to ACM\@. \\
+%     \texttt{othergov} & Authors are employees of a
+%     Government other than US or Canada. \\
+%     \texttt{licensedothergov} & Authors are employees of a
+%     Government other than US or Canada, and the publication rights
+%     are licensed to ACM\@. \\
 %     \bottomrule
 %   \end{tabularx}
 % \end{table}
@@ -1053,7 +1066,7 @@
 %\subsection{Algorithms}
 %\label{sec:ug_algorithms}
 %
-% There now several good packages for typesetting
+% There are now several good packages for typesetting
 % algorithms~\cite{Fiorio15, Brito09, Heinz15}, and the authors are
 % now free to choose their favorite one.
 %
@@ -1402,6 +1415,22 @@
 % }
 % \end{verbatim}
 %
+% If you do not know the year of publication, the style will add
+% ``[n. d.]'' (for ``no date'') entry.
+%
+% If you do not know the author (this is often the case for online
+% entries), use |key| field to add a key for sorting and citations,
+% for example,
+% \begin{verbatim}
+% @online{TUGInstmem,
+%  key =          {TUG},
+%  year  =        2017,
+%  title =        "Institutional members of the {\TeX} Users Group",
+%  url =           "http://wwtug.org/instmem.html",
+%  lastaccessed = "May 27, 2017",
+% }
+% \end{verbatim}
+% 
 % 
 %
 %\subsection{Colors}
@@ -1478,7 +1507,10 @@
 % problematic paragraph inside \texttt{sloppypar} environment might
 % help---but beware the results might be, well, sloppy.
 %
-%
+% Note that the uppercasing in section titles is done using
+% \textsl{textcase} package~\cite{Carlisle04:Textcase}, so command
+% \cs{NoCaseChange} inside title may help to prevent extraneous
+% uppercasing.  
 %
 %\subsection{A note for wizards: \texttt{acmart-preload-hook.tex}}
 %\label{sec:ug_preload}
@@ -1545,7 +1577,7 @@
 \ProvidesFile{acmart.dtx}
 %</gobble>
 %<class>\ProvidesClass{acmart}
-[2017/05/14 v1.39 Typesetting articles for Association of
+[2017/07/09 v1.43 Typesetting articles for Association of
 Computing Machinery]
 %    \end{macrocode}
 %
@@ -1603,6 +1635,12 @@ Computing Machinery]
 % \changes{v1.37}{2017/05/13}{Set \cs{normalparindent}; Reduce list
 % indentation (Matthew Fluet)}%
 % \changes{v1.38}{2017/05/13}{Increase default font size for SIGPLAN}
+% \changes{v1.40}{2017/05/27}{Bibliography changes}
+% \changes{v1.40}{2017/06/15}{Added package cleveref}
+% \changes{v1.40}{2017/06/16}{Added new copyright version:
+% licensedcagov}
+% \changes{v1.41}{2017/06/25}{Added new badges}
+% \changes{v1.42}{2017/07/02}{Deleted ACM badges}
 %
 %
 % And the driver code:
@@ -1652,6 +1690,7 @@ Computing Machinery]
 %    \begin{macrocode}
 \RequirePackage{xstring}
 %    \end{macrocode}
+%
 % 
 %
 % \begin{macro}{format}
@@ -1948,6 +1987,13 @@ Computing Machinery]
 \fi
 %    \end{macrocode}
 %
+% \changes{v1.40}{2017/06/05}{Added `textcase' package}
+% We need \textsl{textcase} for better upcasing
+%    \begin{macrocode}
+\RequirePackage{textcase}      
+%    \end{macrocode}
+% 
+%
 % \changes{v1.19}{2016/07/28}{Include 'References' in PDF bookmarks
 % (Matthew Fluet)}
 % \changes{v1.14}{2016/06/09}{Patched \cs{citestyle}}
@@ -2181,10 +2227,11 @@ Computing Machinery]
 %
 % \begin{macro}{\@startsection}
 % \changes{v1.31}{2017/03/04}{Rededined macro} 
+% \changes{v1.43}{2017/07/09}{Added \cs{makeatletter}} 
 %   Amsart redefines \cs{startsection}.  Here we redefine it again to
 %   make TOC working
 %    \begin{macrocode}
-\def\@starttoc#1#2{\begingroup
+\def\@starttoc#1#2{\begingroup\makeatletter
   \setTrue{#1}%
   \par\removelastskip\vskip\z@skip
   \@startsection{section}\@M\z@{\linespacing\@plus\linespacing}%
@@ -2202,7 +2249,15 @@ Computing Machinery]
 % \end{macro}
 %
 % \begin{macro}{\l@subsection}
-% \changes{v1.31}{2017/03/04}{Rededined macro} 
+% \changes{v1.40}{2017/05/27}{Redefined macro} 
+%   Section spacing is more generous than for amsart
+%    \begin{macrocode}
+\def\l@section{\@tocline{1}{0pt}{1pc}{2pc}{}}
+%    \end{macrocode}
+% \end{macro}
+% 
+% \begin{macro}{\l@subsection}
+% \changes{v1.31}{2017/03/04}{Redefined macro} 
 %   Amsart has too large spacing
 %    \begin{macrocode}
 \def\l@subsection{\@tocline{2}{0pt}{1pc}{3pc}{}}
@@ -2210,7 +2265,7 @@ Computing Machinery]
 %   
 % \end{macro}
 % \begin{macro}{\l@subsubsection}
-% \changes{v1.31}{2017/03/04}{Rededined macro} 
+% \changes{v1.31}{2017/03/04}{Redefined macro} 
 %   Amsart has too large spacing
 %    \begin{macrocode}
 \def\l@subsubsection{\@tocline{2}{0pt}{1pc}{5pc}{}}
@@ -2253,6 +2308,7 @@ Computing Machinery]
 \else
   \hypersetup{hidelinks}
 \fi
+\RequirePackage{cleveref}
 %    \end{macrocode}
 %
 % Bibliography mangling. 
@@ -2334,6 +2390,7 @@ Computing Machinery]
 %
 % \changes{v1.17}{2016/07/07}{Slightly decreased margins for sigs}
 % \changes{v1.29}{2017/01/22}{Increased head to 13pt}
+% \changes{v1.40}{2017/07/15}{Added heightrounded to geometry}
 % We use |geometry| for dimensions.  Note the presently margins do not
 % depend on the font size option - maybe we will need to change this.
 % See
@@ -2343,55 +2400,55 @@ Computing Machinery]
 \ifcase\ACM@format@nr
 \relax % manuscript
    \geometry{letterpaper,head=13pt,
-   marginparwidth=6pc}%
+   marginparwidth=6pc,heightrounded}%
 \or % acmsmall
    \geometry{twoside=true,
      includeheadfoot, head=13pt, foot=2pc,
      paperwidth=6.75in, paperheight=10in,
      top=58pt, bottom=44pt, inner=46pt, outer=46pt,
-     marginparwidth=2pc
+     marginparwidth=2pc,heightrounded
    }%
 \or % acmlarge
    \geometry{twoside=true, head=13pt, foot=2pc,
      paperwidth=8.5in, paperheight=11in,
      includeheadfoot,
      top=78pt, bottom=114pt, inner=81pt, outer=81pt,
-     marginparwidth=4pc
+     marginparwidth=4pc,heightrounded
      }%
 \or % acmtog
    \geometry{twoside=true, head=13pt, foot=2pc,
      paperwidth=8.5in, paperheight=11in,
      includeheadfoot, columnsep=24pt,
      top=52pt, bottom=75pt, inner=52pt, outer=52pt,
-     marginparwidth=2pc
+     marginparwidth=2pc,heightrounded
      }%
 \or % sigconf
    \geometry{twoside=true, head=13pt,
      paperwidth=8.5in, paperheight=11in,
      includeheadfoot, columnsep=2pc,
      top=57pt, bottom=73pt, inner=54pt, outer=54pt,
-     marginparwidth=2pc
+     marginparwidth=2pc,heightrounded
      }%
 \or % siggraph
    \geometry{twoside=true, head=13pt,
      paperwidth=8.5in, paperheight=11in,
      includeheadfoot, columnsep=2pc,
      top=57pt, bottom=73pt, inner=54pt, outer=54pt,
-     marginparwidth=2pc
+     marginparwidth=2pc,heightrounded
      }%
 \or % sigplan
    \geometry{twoside=true, head=13pt,
      paperwidth=8.5in, paperheight=11in,
      includeheadfoot=false, columnsep=2pc,
      top=1in, bottom=1in, inner=0.75in, outer=0.75in,
-     marginparwidth=2pc
+     marginparwidth=2pc,heightrounded
      }%
 \or % sigchi
    \geometry{twoside=true, head=13pt,
      paperwidth=8.5in, paperheight=11in,
      includeheadfoot, columnsep=2pc,
      top=66pt, bottom=73pt, inner=54pt, outer=54pt,
-     marginparwidth=2pc
+     marginparwidth=2pc,heightrounded
      }%
 \or % sigchi-a
    \geometry{twoside=false, head=13pt,
@@ -2571,13 +2628,23 @@ Computing Machinery]
 % \changes{v1.12}{2016/05/30}{Added graceful behavior when libertine
 % fonts are absent}
 % \changes{v1.33}{2017/03/29}{Added cmap and glyphtounicode}
+% \changes{v1.40}{2017/05/27}{Added Ross Moore code for glyphtounicode}
 %
 % Somehow PDFTeX and XeTeX require different incantations to make PDF
 % compliant with the current Acrobat bugs.  Xpdf is much better.
+%
+% The code below is by Ross Moore.
 %    \begin{macrocode}
 \RequirePackage{iftex}
 \ifPDFTeX
 \input{glyphtounicode}
+\pdfglyphtounicode{f_f}{FB00}
+\pdfglyphtounicode{f_f_i}{FB03}
+\pdfglyphtounicode{f_f_l}{FB04}
+\pdfglyphtounicode{f_i}{FB01}
+\pdfglyphtounicode{t_t}{00740074}
+\pdfglyphtounicode{f_t}{00660074}
+\pdfglyphtounicode{T_h}{00540068}
 \pdfgentounicode=1
 \fi
 \RequirePackage{cmap}
@@ -3325,7 +3392,7 @@ Computing Machinery]
 % \begin{macro}{\orcid}
 % \changes{v1.15}{2016/06/25}{Introduced macro}
 %   Right now we do not typeset orcids
-\let\orcid\@gobble
+\def\orcid#1{\unskip\ignorespaces}
 % \end{macro}
 % 
 % \begin{macro}{\@titlenotes}
@@ -3783,11 +3850,12 @@ Computing Machinery]
 % \end{macro}
 %
 % \begin{macro}{\ccsdesc}
+% \changes{v1.40}{2017/05/27}{Now we can parse |Significance~General| nodes}
 %   The first argument is the significance, the second is the
 %   concept(s)
 %    \begin{macrocode}
 \newcommand\ccsdesc[2][100]{%
-  \ccsdesc@parse#1~#2~}
+  \ccsdesc@parse#1~#2~~\ccsdesc@parse@end}
 %    \end{macrocode}
 %
 % \end{macro}
@@ -3797,22 +3865,42 @@ Computing Machinery]
 % \cs{textrightarrow} (Matteo Riondato)}
 % \changes{v1.29}{2017/01/22}{Add spacing after bullet and around
 % rightarrow; semicolon separators no longer in bold/italic (John Wickerson)}
+% \changes{v1.40}{2017/05/27}{Now we can parse |Significance~General| nodes}
 %   The parser of the expression |Significance~General~Specific| (we need
-%   |textcomp| for |\\textrightarrow|):
+%   |textcomp| for |\textrightarrow|).  Note that |Specific| can be empty!
 %    \begin{macrocode}
 \RequirePackage{textcomp}
 \def\ccsdesc@parse#1~#2~#3~{%
-  \expandafter\ifx\csname CCS@#2\endcsname\relax
-    \expandafter\gdef\csname CCS@#2\endcsname{\textbullet\ \textbf{#2} \textrightarrow\ }%
-  \g@addto@macro{\@concepts}{\csname CCS@#2\endcsname}\fi
-  \expandafter\g@addto@macro\expandafter{\csname CCS@#2\endcsname}{%
-    \ifnum#1>499\textbf{#3}; \else
-    \ifnum#1>299\textit{#3}; \else
-    #3; \fi\fi}}
+  \expandafter\ifx\csname CCS@General@#2\endcsname\relax
+    \expandafter\gdef\csname CCS@General@#2\endcsname{\textbullet\
+      \textbf{#2}}%
+    \expandafter\gdef\csname CCS@Punctuation@#2\endcsname{; }%   
+    \expandafter\gdef\csname CCS@Specific@#2\endcsname{}%   
+  \g@addto@macro{\@concepts}{\csname CCS@General@#2\endcsname
+    \csname CCS@Punctuation@#2\endcsname
+    \csname CCS@Specific@#2\endcsname}%
+  \fi
+  \ifx#3\relax\relax\else
+    \expandafter\gdef\csname CCS@Punctuation@#2\endcsname{
+      \textrightarrow\ }%   
+    \expandafter\g@addto@macro\expandafter{\csname CCS@Specific@#2\endcsname}{%
+     \ifnum#1>499\textbf{#3}; \else
+     \ifnum#1>299\textit{#3}; \else
+     #3; \fi\fi}%
+  \fi
+\ccsdesc@parse@finish}
 %    \end{macrocode}
 %
 % \end{macro}
 %
+% \begin{macro}{\ccdesc@parse@finish}
+% \changes{v1.40}{2017/05/27}{Added macro}
+%   Gobble everything to |\ccsdesc@parse@end|
+%    \begin{macrocode}
+\def\ccsdesc@parse@finish#1\ccsdesc@parse@end{}
+%    \end{macrocode}
+%
+% \end{macro}
 %
 %\subsection{Copyright system}
 %\label{sec:copyright}
@@ -3852,9 +3940,11 @@ Computing Machinery]
 % Keys:
 %    \begin{macrocode}
 \define@choicekey*{ACM@}{acmcopyrightmode}[%
-  \acm@copyrightinput\acm@copyrightmode]{none,acmcopyright,acmlicensed,%
-  rightsretained,usgov,usgovmixed,cagov,cagovmixed,%
-  licensedusgovmixed,licensedcagovmixed,othergov,licensedothergov}{%
+  \acm@copyrightinput\acm@copyrightmode]{none,%
+    acmcopyright,acmlicensed,rightsretained,%
+    usgov,usgovmixed,cagov,cagovmixed,%
+    licensedusgovmixed,%
+    licensedcagov,licensedcagovmixed,othergov,licensedothergov}{%
   \@printpermissiontrue
   \@printcopyrighttrue
   \@acmownedtrue
@@ -3882,13 +3972,16 @@ Computing Machinery]
   \ifnum\acm@copyrightmode=8\relax % licensedusgovmixed
    \@acmownedfalse
   \fi
-  \ifnum\acm@copyrightmode=9\relax % licensedcagovmixed
+  \ifnum\acm@copyrightmode=9\relax % licensedcagov
    \@acmownedfalse
   \fi
-  \ifnum\acm@copyrightmode=10\relax % othergov
+  \ifnum\acm@copyrightmode=10\relax % licensedcagovmixed
+   \@acmownedfalse
+  \fi
+  \ifnum\acm@copyrightmode=11\relax % othergov
    \@acmownedtrue
   \fi
-  \ifnum\acm@copyrightmode=11\relax % licensedothergov
+  \ifnum\acm@copyrightmode=12\relax % licensedothergov
    \@acmownedfalse
   \fi}
 %    \end{macrocode}
@@ -3904,6 +3997,7 @@ Computing Machinery]
 %
 %
 % \begin{macro}{\@copyrightowner}
+% \changes{v1.40}{2017/06/16}{Added new copyright version: licensedcagov}
 %   Here is the owner of the copyright
 %    \begin{macrocode}
 \def\@copyrightowner{%
@@ -3924,6 +4018,9 @@ Computing Machinery]
   Association for Computing Machinery.
   \or %licensedusgovmixed
   Copyright held by the owner/author(s). Publication rights licensed to
+  Association for Computing Machinery.
+  \or % licensedcagov
+  Crown in Right of Canada. Publication rights licensed to
   Association for Computing Machinery.
   \or %licensedcagovmixed
   Copyright held by the owner/author(s). Publication rights licensed to
@@ -3949,6 +4046,7 @@ Computing Machinery]
 % \end{macro}
 %
 % \begin{macro}{\@copyrightpermission}
+% \changes{v1.40}{2017/06/16}{Added new copyright version: licensedcagov}
 %   The canned permission block.
 %    \begin{macrocode}
 \def\@copyrightpermission{%
@@ -3991,16 +4089,10 @@ Computing Machinery]
    source.
   \or % usgovmixed
    ACM acknowledges that this contribution was authored or co-authored
-   by an employee, or contractor of the national government. As such,
-   the Government retains a nonexclusive, royalty-free right to
+   by an employee, contractor, or affiliate of the United States government. As such,
+   the United States government retains a nonexclusive, royalty-free right to
    publish or reproduce this article, or to allow others to do so, for
-   Government purposes only. Permission to make digital or hard copies
-   for personal or classroom use is granted. Copies must bear this
-   notice and the full citation on the first page. Copyrights for
-   components of this work owned by others than ACM must be
-   honored. To copy otherwise, distribute, republish, or post,
-   requires prior specific permission and\hspace*{.5pt}/or a
-   fee. Request permissions from permissions@acm.org.
+   government purposes only.
   \or % cagov
    This article was authored by employees of the Government of Canada.
    As such, the Canadian government retains all interest in the
@@ -4011,7 +4103,7 @@ Computing Machinery]
    Permission to make digital or hard copies for personal or classroom
    use is granted. Copies must bear this notice and the full citation
    on the first page.  Copyrights for components of this work owned by
-   others than the Canadain Government must be honored. To copy
+   others than the Canadian Government must be honored. To copy
    otherwise, distribute, republish, or post, requires prior specific
    permission and\hspace*{.5pt}/or a fee. Request permissions from
    permissions@acm.org.
@@ -4034,6 +4126,20 @@ Computing Machinery]
    Government retains a nonexclusive, royalty-free right to publish or
    reproduce this article, or to allow others to do so, for Government
    purposes only.
+  \or % licensedcagov
+   This article was authored by employees of the Government of Canada.
+   As such, the Canadian government retains all interest in the
+   copyright to this work and grants to ACM a nonexclusive,
+   royalty-free right to publish or reproduce this article, or to allow
+   others to do so, provided that clear attribution is given both to
+   the authors and the Canadian government agency employing them.
+   Permission to make digital or hard copies for personal or classroom
+   use is granted. Copies must bear this notice and the full citation
+   on the first page.  Copyrights for components of this work owned by
+   others than the Canadian Government must be honored. To copy
+   otherwise, distribute, republish, or post, requires prior specific
+   permission and\hspace*{.5pt}/or a fee. Request permissions from
+   permissions@acm.org.
   \or % licensedcagovmixed
    Publication rights licensed to ACM\@. ACM acknowledges that this
    contribution was authored or co-authored by an employee, contractor
@@ -4251,7 +4357,9 @@ Computing Machinery]
      \@mkbibcitation
   \fi
   \hypersetup{pdfauthor={\authors},
-    pdftitle={\@title}, pdfkeywords={\@concepts}}%
+    pdftitle={\@title},
+    pdfsubject={\@concepts},
+    pdfkeywords={\@keywords}}%
   \@printendtopmatter
   \@afterindentfalse
   \@afterheading
@@ -4566,44 +4674,47 @@ Computing Machinery]
 % \begin{macro}{\streetaddress}
 % \changes{v1.15}{2016/07/03}{Added macro}
 % \changes{v1.33}{2017/03/28}{Added obeypunctuation code}
+% \changes{v1.40}{2017/06/15}{We now do not print this even in SIG}
 % \begin{macro}{\city}
 % \changes{v1.15}{2016/07/03}{Added macro}
 % \changes{v1.33}{2017/03/28}{Added obeypunctuation code}
+% \changes{v1.40}{2017/06/15}{We now do not print this even in SIG}
 % \begin{macro}{\state}
 % \changes{v1.15}{2016/07/03}{Added macro}
 % \changes{v1.33}{2017/03/28}{Added obeypunctuation code}
+% \changes{v1.40}{2017/06/15}{We now do not print this even in SIG}
 % \begin{macro}{\postcode}
 % \changes{v1.15}{2016/07/03}{Added macro}
 % \changes{v1.33}{2017/03/28}{Added obeypunctuation code}
+% \changes{v1.40}{2017/06/15}{We now do not print this even in SIG}
 % \begin{macro}{\country}
 % \changes{v1.15}{2016/07/03}{Added macro}
 % \changes{v1.33}{2017/03/28}{Added obeypunctuation code}
+% \changes{v1.40}{2017/05/27}{Fixed bugs with extra spaces}
+% \changes{v1.43}{2017/07/11}{Added comma before country for journals}
 %   Theoretically we can define the macros for \cs{affiliation} inside
 %   the \cs{@mkauthors}-style commands.  However, this would lead to a
 %   strange error if an author uses them outside \cs{affiliation}.  Of
 %   course we can make them produce an error message, but\ldots
-%
-%   We follow the strange American tradtion of no comma before zip
-%   code.  
 %    \begin{macrocode}
+\def\streetaddress#1{\unskip\ignorespaces}
+\def\postcode#1{\unskip\ignorespaces}
 \if@ACM@journal
-  \let\position\@gobble
-  \def\institution#1{#1\ignorespaces}%
-  \newcommand\department[2][0]{}%
-  \let\streetaddress\@gobble
-  \let\city\@gobble
-  \let\state\@gobble
-  \let\postcode\@gobble
-  \let\country\@gobble
+  \def\position#1{\unskip\ignorespaces}
+  \def\institution#1{#1\ignorespaces}
+  \def\city#1{\unskip\ignorespaces}
+  \def\state#1{\unskip\ignorespaces}
+  \newcommand\department[2][0]{}
+  \def\country#1{\if@ACM@affiliation@obeypunctuation\else, \fi#1\ignorespaces}
 \else
   \def\position#1{\if@ACM@affiliation@obeypunctuation#1\else#1\par\fi}%
   \def\institution#1{\if@ACM@affiliation@obeypunctuation#1\else#1\par\fi}%
   \newcommand\department[2][0]{\if@ACM@affiliation@obeypunctuation
     #2\else#2\par\fi}%
-  \def\streetaddress#1{\if@ACM@affiliation@obeypunctuation#1\else#1\par\fi}%
+%  \def\streetaddress#1{\if@ACM@affiliation@obeypunctuation#1\else#1\par\fi}%
   \let\city\@ACM@addtoaddress
   \let\state\@ACM@addtoaddress
-  \def\postcode#1{\if@ACM@affiliation@obeypunctuation#1\else\unskip\space#1\fi}%
+%  \def\postcode#1{\if@ACM@affiliation@obeypunctuation#1\else\unskip\space#1\fi}%
   \let\country\@ACM@addtoaddress
 \fi
 %    \end{macrocode}
@@ -4717,6 +4828,7 @@ Computing Machinery]
 % \begin{macro}{\@mkauthors@i}
 % \changes{v1.18}{2016/07/12}{Now we andify affiliations}
 % \changes{v1.33}{2017/03/28}{Added obeypunctuation code}
+% \changes{v1.40}{2017/06/04}{Switched to MakeTextUppercase}
 %   This is version used in most journal formats.  Note that \cs{and} between
 %   authors with the same affiliation becomes \verb*| and |:
 %    \begin{macrocode}
@@ -4726,9 +4838,9 @@ Computing Machinery]
   \global\let\and\@typeset@author@line
   \def\@author##1{%
     \ifx\@currentauthors\@empty
-      \gdef\@currentauthors{\@authorfont\MakeUppercase{##1}}%
+      \gdef\@currentauthors{\@authorfont\MakeTextUppercase{##1}}%
     \else
-       \g@addto@macro{\@currentauthors}{\and\MakeUppercase{##1}}%
+       \g@addto@macro{\@currentauthors}{\and\MakeTextUppercase{##1}}%
     \fi
     \gdef\and{}}%
   \def\email##1##2{}%
@@ -5016,7 +5128,7 @@ Computing Machinery]
   \def\footnote{\ClassError{\@classname}{Please do note use footnotes
       inside \string\title{} or \string\author{} command! Use
       \string\titlenote{} or \string\authornote{} instead!}}%
-  \par\medskip\small\noindent{\bfseries ACM Reference format:}\par\nobreak
+  \par\medskip\small\noindent{\bfseries ACM Reference Format:}\par\nobreak
   \noindent\authors. \@acmYear. \@title. 
   \if@ACM@journal
      \textit{\@journalNameShort}
@@ -5083,6 +5195,8 @@ Computing Machinery]
 %
 % \begin{macro}{\ACM@linecount@bx}
 % \changes{v1.34}{2017/04/10}{Rulers now are continuous}
+% \changes{v1.40}{2017/05/27}{Work around a bug in xcolor: looks like
+% cmyk colors in boxes do not work}
 %   This is the box displayed in the review mode
 %    \begin{macrocode}
 \if@ACM@review
@@ -5093,7 +5207,7 @@ Computing Machinery]
   \def\ACM@mk@linecount{%
     \savebox{\ACM@linecount@bx}[4em][t]{\parbox[t]{4em}{%
         \setlength{\ACM@linecount@bxht}{-\baselineskip}%
-        \loop{\color{ACMRed}\scriptsize\the\ACM@linecount}\\
+        \loop{\color{red}\scriptsize\the\ACM@linecount}\\
         \global\advance\ACM@linecount by \@ne
         \addtolength{\ACM@linecount@bxht}{\baselineskip}%
         \ifdim\ACM@linecount@bxht<\textheight\repeat}}}
@@ -5436,9 +5550,10 @@ Computing Machinery]
 % \begin{macro}{\@subsubsecfont}
 % \begin{macro}{\@parfont}
 %   \changes{v1.12}{2016/05/30}{Moved to \cs{section@raggedright}}%
+% \changes{v1.40}{2017/06/04}{Switched to MakeTextUppercase}
 % Fonts for sections etc. are different for different formats. 
 %    \begin{macrocode}
-\def\@secfont{\sffamily\bfseries\section@raggedright\MakeUppercase}
+\def\@secfont{\sffamily\bfseries\section@raggedright\MakeTextUppercase}
 \def\@subsecfont{\sffamily\bfseries\section@raggedright}
 \def\@subsubsecfont{\sffamily\itshape}
 \def\@parfont{\itshape}
@@ -5447,16 +5562,16 @@ Computing Machinery]
 \relax % manuscript
 \or % acmsmall
 \or % acmlarge
- \def\@secfont{\sffamily\large\section@raggedright\MakeUppercase}
+ \def\@secfont{\sffamily\large\section@raggedright\MakeTextUppercase}
  \def\@subsecfont{\sffamily\large\section@raggedright}
 \or % acmtog
- \def\@secfont{\sffamily\large\section@raggedright\MakeUppercase}
+ \def\@secfont{\sffamily\large\section@raggedright\MakeTextUppercase}
  \def\@subsecfont{\sffamily\large\section@raggedright}
 \or % sigconf
- \def\@secfont{\bfseries\Large\section@raggedright\MakeUppercase}
+ \def\@secfont{\bfseries\Large\section@raggedright\MakeTextUppercase}
  \def\@subsecfont{\bfseries\Large\section@raggedright}
 \or % siggraph
- \def\@secfont{\bfseries\sffamily\Large\section@raggedright\MakeUppercase}
+ \def\@secfont{\bfseries\sffamily\Large\section@raggedright\MakeTextUppercase}
  \def\@subsecfont{\bfseries\sffamily\Large\section@raggedright}
 \or % sigplan
  \def\@secfont{\bfseries\Large\section@raggedright}
@@ -5478,11 +5593,11 @@ Computing Machinery]
  \def\@subparfont{\itshape}
 \or % sigchi
  \setcounter{secnumdepth}{1}
- \def\@secfont{\bfseries\sffamily\section@raggedright\MakeUppercase}
+ \def\@secfont{\bfseries\sffamily\section@raggedright\MakeTextUppercase}
  \def\@subsecfont{\bfseries\sffamily\section@raggedright}
 \or % sigchi-a
  \setcounter{secnumdepth}{0}
- \def\@secfont{\bfseries\sffamily\section@raggedright\MakeUppercase}
+ \def\@secfont{\bfseries\sffamily\section@raggedright\MakeTextUppercase}
  \def\@subsecfont{\bfseries\sffamily\section@raggedright}
 \fi
 %    \end{macrocode}
