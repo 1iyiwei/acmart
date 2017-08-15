@@ -15,8 +15,8 @@
 % The Current Maintainer of this work is Boris Veytsman,
 % <borisv@lk.net>
 %
-% This work consists of the file acmart.dtx, the derived file
-% acmart.cls, the files ACM-Reference-Format.bst, and templates
+% This work consists of the file acmart.dtx, the derived files
+% acmart.cls, acmthm.sty, the files ACM-Reference-Format.bst, and templates
 % sample-acmlarge.tex, sample-acmsmall.tex, sample-acmtog.tex,
 % samplebody-conf.tex, samplebody-journals.tex, sample-manuscript.tex,
 % sample-sigchi-a.tex, sample-sigchi.tex,
@@ -98,12 +98,26 @@
 % package.
 %
 %  I am grateful to
-%  Matthew Fluet, 
+%  Michael D.~Adams,
+%  Leif Andersen, 
+%  Dirk Beyer,
+%  Michael Ekstrand,
+%  Matthew Fluet,
+%  Paolo G.~Giarrusso,
+%  Ben Greenman,
+%  Ben Liblit,
+%  Frank Mittelbach, 
+%  Ross Moore,
 %  John Owens,
+%  Joel Nider, 
+%  Tobias Pape,
+%  Mathias Rav, 
+%  Matteo Riondato, 
 %  Craig Rodkin,
 %  Bernard Rous,
 %  David Shamma,
-%  Stephen Spencer
+%  Stephen Spencer,
+%  John Wickerson, 
 %  and many others for their invaluable help.
 %
 % The development version of the package is available at
@@ -133,9 +147,10 @@
 % and rather rely on their \TeX\ distributions to provide it.  If you
 % decide to install the package yourself, follow the standard rules:
 % \begin{enumerate}
-% \item Run \progname{latex} on |acmart.ins|.  This will produce the file
-% |acmart.cls|.
-% \item Put the file |acmart.cls| and the bibliography files |*.bst|
+% \item Run \progname{latex} on |acmart.ins|.  This will produce the files
+% |acmart.cls| and |acmthm.sty|
+% \item Put the files |acmart.cls|, |acmthm.sty| 
+%   and the bibliography files |*.bst|
 %   to the places where \LaTeX{} can find them (see \cite{TeXFAQ} or
 %   the documentation for your \TeX{} system).\label{item:install}
 % \item Update the database of file names.  Again, see \cite{TeXFAQ}
@@ -162,7 +177,6 @@
 % \item \textsl{comment}, \url{http://www.ctan.org/pkg/comment}
 % \item \textsl{cm-super}, \url{http://www.ctan.org/pkg/cm-super}
 % \item \textsl{cmap}, \url{http://www.ctan.org/pkg/cmap}
-% \item \textsl{cleveref}, \url{http://www.ctan.org/pkg/cleveref}
 % \item \textsl{draftwatermark}, \url{http://www.ctan.org/pkg/draftwatermark}
 % \item \textsl{environ}, \url{http://www.ctan.org/pkg/environ}
 % \item \textsl{fancyhdr}, \url{http://www.ctan.org/pkg/fancyhdr}
@@ -185,6 +199,7 @@
 % \item \textsl{newtx}, \url{http://www.ctan.org/pkg/newtx}
 % \item \textsl{oberdiek}, \url{http://www.ctan.org/pkg/oberdiek}
 % \item \textsl{pdftex-def}, \url{http://www.ctan.org/pkg/pdftex-def}
+% \item \textsl{refcount}, \url{http://www.ctan.org/pkg/refcount}
 % \item \textsl{setspace}, \url{http://www.ctan.org/pkg/setspace}
 % \item \textsl{textcase}, \url{http://www.ctan.org/pkg/textcase}
 % \item \textsl{totpages}, \url{http://www.ctan.org/pkg/totpages}
@@ -322,6 +337,8 @@
 %     timestamp & false & Whether to put a time stamp in the
 %     footer of each page\\
 %     authordraft & false & Whether author's draft mode is enabled\\
+%     acmthm & true & Whether to load |acmthm.sty|, see
+%     Section~\ref{sec:ug_theorems}\\
 %     \bottomrule
 %   \end{tabularx}
 % \end{table}
@@ -438,8 +455,7 @@
 % arguments are the following:
 % \begin{description}
 % \item[short name:] the abbreviated name of the conference (optional).
-% \item[name:] the name of the conference \emph{or} the name of the
-% book as set by the editor.
+% \item[name:] the name of the conference.
 % \item[date:] the date(s) of the conference.
 % \item[venue:] the place of the conference.
 % \end{description}
@@ -450,10 +466,30 @@
 % \acmConference{SA'15 Art Papers}{November 02--06, 2015}{Kobe, Japan}
 % \end{verbatim}
 %
+% \DescribeMacro{\acmBooktitle}%
+% By default we assume that the conference proceedings are published
+% in the book named \emph{Proceedings of \textsc{CONFERENCE}}, where
+% \textsc{CONFERENCE} is the name of the conference inferred from the
+% command \cs{acmConference} above.  However, sometimes the book title
+% is different.  The command \cs{acmBooktitle} may be used to set this
+% title, for example,
+% \begin{verbatim}
+% \acmBooktitle{Companion to the first International Conference on the
+% Art, Science and Engineering of Programming (Programming '17)} 
+% \end{verbatim}
+% 
+% \DescribeMacro{\editor}%
+% In most cases conference proceedings are edited.  You can use the
+% command \cs{editor}\oarg{editor} to set the editor of the volume.
+% This command can be repeated, for example,
+% \begin{verbatim}
+% \editor{Jennifer B. Sartor}
+% \editor{Theo D'Hondt}
+% \editor{Wolfgang De Meuter}
+% \end{verbatim}
+% 
 %
-% Normally this command is entered either by the editor or by the typesetter.
-%
-% \DescribeMacro{\title}
+% \DescribeMacro{\title}%
 % The command |\title|, as in \progname{amsart} class, has two arguments:  one
 % optional, and one mandatory:
 % \begin{flushleft}
@@ -766,6 +802,8 @@
 % \acmYear{2010}
 % \acmMonth{3}
 % \end{verbatim}
+% Note that \cs{acmArticle} is used not only for journals, but also
+% for some conference proceedings.
 %
 % \DescribeMacro{\acmArticleSeq}%
 % The articles in the same issue of a journal have a \emph{sequential
@@ -776,6 +814,7 @@
 % \acmArticle{39}   % The sequence number will be 39 by default
 % \acmArticleSeq{5} % We redefine it to 5
 % \end{verbatim}
+% Setting this number to zero suppresses the blob.
 %
 % \DescribeMacro{\acmSubmissionID}%
 % If you paper got a Submission~ID from the Conference Management
@@ -804,7 +843,8 @@
 % \begin{verbatim}
 % \acmISBN{978-1-4503-3916-2}
 % \end{verbatim}
-%
+% Setting it to empty string, as |\acmISBN{}|, suppresses printing of
+% ISBN.  
 %
 % \DescribeMacro{\acmDOI}%
 % The macro \cs{acmDOI}\marg{DOI} sets the DOI number of the article, for
@@ -812,7 +852,8 @@
 % \begin{verbatim}
 % \acmDOI{10.1145/9999997.9999999}
 % \end{verbatim}
-% It is normally set by the typesetter.
+% It is normally set by the typesetter.  Setting it to empty
+% string, |\acmDOI{}| suppresses DOI.
 %
 %
 % \DescribeMacro{\acmBadgeR}%
@@ -1188,7 +1229,17 @@
 % \end{description}
 %
 %
-%
+% These definitions are in the separate style file |acmthm.sty|, which
+% is loaded by default.  However, sometimes the user might want to
+% delay loading this package, for example, if she wants for load
+% package like |cleveref| first.  In this case use the option
+% |acmthm=false| in the preamble, for example,
+% \begin{verbatim}
+% \documentclass[acmsmall, acmthm=false]{acmart}
+% \usepackage{cleveref}
+% \usepackage{acmthm}
+% \end{verbatim}
+% 
 %
 %
 %\subsection{Online-only and offline-only material}
@@ -1256,7 +1307,7 @@
 % thanks inside this environment.
 %
 % As for |printonly| and |screenonly| environments,
-% |\begin{acks}| and |\end{acls}| should start the
+% |\begin{acks}| and |\end{acks}| should start the
 % line of their own (no leading or trailing spaces).
 %
 % \DescribeMacro{\grantsponsor}%
@@ -1577,7 +1628,8 @@
 \ProvidesFile{acmart.dtx}
 %</gobble>
 %<class>\ProvidesClass{acmart}
-[2017/07/09 v1.43 Typesetting articles for Association of
+%<acmthm>\ProvidesPackage{acmthm}
+[2017/08/12 v1.44 Typesetting articles for Association of
 Computing Machinery]
 %    \end{macrocode}
 %
@@ -1641,6 +1693,9 @@ Computing Machinery]
 % licensedcagov}
 % \changes{v1.41}{2017/06/25}{Added new badges}
 % \changes{v1.42}{2017/07/02}{Deleted ACM badges}
+% \changes{v1.44}{2017/07/30}{Added package refcount}
+% \changes{v1.44}{2017/07/30}{Deleted package cleveref}
+% \changes{v1.44}{2017/07/30}{Put theorem defs in a separate style}
 %
 %
 % And the driver code:
@@ -1728,6 +1783,22 @@ Computing Machinery]
   \fi}{\PackageError{\@classname}{Option screen can be either true or
     false}}
 \ExecuteOptionsX{screen=false}
+%    \end{macrocode}
+%
+% \end{macro}
+%
+% \begin{macro}{\if@ACM@acmthm}
+% \changes{v1.44}{2017/07/30}{Added macro}
+%   Whether we load |acmthm|
+%    \begin{macrocode}
+\define@boolkey+{acmart.cls}[@ACM@]{acmthm}[true]{%
+  \if@ACM@acmthm
+    \PackageInfo{\@classname}{Requiring acmthm}%
+  \else
+    \PackageInfo{\@classname}{Suppressing acmthm}%
+  \fi}{\PackageError{\@classname}{Option acmthm can be either true or
+    false}}
+\ExecuteOptionsX{acmthm=true}
 %    \end{macrocode}
 %
 % \end{macro}
@@ -1968,8 +2039,10 @@ Computing Machinery]
 %    \end{macrocode}
 %
 %
-% We need |totpages| package to calculate the number of pages
+% We need |totpages| package to calculate the number of pages and
+% |refcount| to use the number
 %    \begin{macrocode}
+\RequirePackage{refcount}
 \RequirePackage{totpages}
 %    \end{macrocode}
 %
@@ -2308,7 +2381,6 @@ Computing Machinery]
 \else
   \hypersetup{hidelinks}
 \fi
-\RequirePackage{cleveref}
 %    \end{macrocode}
 %
 % Bibliography mangling. 
@@ -3245,6 +3317,50 @@ Computing Machinery]
 %
 % \end{macro}
 %
+% \begin{macro}{\acmBooktitle}
+% \changes{v1.44}{2017/08/11}{Added macro}
+% \begin{macro}{\@acmBooktitle}
+% \changes{v1.44}{2017/08/11}{Added macro}
+%   The book title of the conference:
+%    \begin{macrocode}
+\def\acmBooktitle#1{\gdef\@acmBooktitle{#1}}
+\acmBooktitle{Proceedings of \acmConference@name
+       \ifx\acmConference@name\acmConference@shortname\else
+         \ (\acmConference@shortname)\fi}
+%    \end{macrocode}
+%   
+% \end{macro}
+% \end{macro}
+%
+% \begin{macro}{\@editorsAbbrev}
+% \changes{v1.44}{2017/08/11}{Added macro}
+%   How to abbreviate editors
+%    \begin{macrocode}
+\def\@editorsAbbrev{(Ed.)}
+%    \end{macrocode}
+%   
+% \end{macro}
+%
+% \begin{macro}{\@acmEditors}
+% \changes{v1.44}{2017/08/11}{Added macro}
+%   The list of editors
+\def\@acmEditors{}
+% \end{macro}
+%
+% \begin{macro}{\editor}
+% \changes{v1.44}{2017/08/11}{Added macro}
+%   Add new editor to the list
+%    \begin{macrocode}
+\def\editor#1{\ifx\@acmEditors\@empty
+    \gdef\@acmEditors{#1}%
+  \else
+    \gdef\@editorsAbbrev{(Eds.)}%
+    \g@addto@macro\@acmEditors{\and#1}%
+\fi}
+%    \end{macrocode}
+%   
+% \end{macro}
+%
 % \begin{macro}{\subtitle}
 %   The subtitle macro
 %    \begin{macrocode}
@@ -3500,16 +3616,18 @@ Computing Machinery]
 %
 % \begin{macro}{\acmArticle}
 % \changes{v1.17}{2016/07/10}{The default is now numerical}
+% \changes{v1.44}{2017/08/111}{The default is now empty}
 %   The current article
 %    \begin{macrocode}
 \def\acmArticle#1{\def\@acmArticle{#1}}
-\acmArticle{1}
+\acmArticle{}
 %    \end{macrocode}
 %
 % \end{macro}
 %
 % \begin{macro}{\acmArticleSeq}
 % \changes{v1.04}{2016/04/26}{Name change by Matthew Fluet}
+% \changes{v1.44}{2017/08/11}{Now acmArticle might be empty}
 %   The sequence number
 %    \begin{macrocode}
 \def\acmArticleSeq#1{\def\@acmArticleSeq{#1}}
@@ -4246,6 +4364,8 @@ Computing Machinery]
 % \changes{v1.34}{2017/04/09}{Added date to the bibstrip in conf proceedings}
 % \changes{v1.34}{2017/04/09}{The \cs{terms} command is now obsolete}
 % \changes{v1.34}{2017/04/11}{Rearranged bibstrip}
+% \changes{v1.44}{2017/07/30}{Empty DOI or ISBN are not printed (by
+% Michael Ekstrand)} 
 %   The (in)famous \cs{maketitle}.  Note that in sigchi-a mode authors
 %   are \emph{not} in the title box.
 %
@@ -4313,7 +4433,7 @@ Computing Machinery]
           \if@ACM@journal
             \emph{\@journalName}%
           \else
-            \emph{Proceedings of \acmConference@name, \acmConference@date}%
+            \emph{\@acmBooktitle}%
           \fi
           \ifx\@acmDOI\@empty
           .
@@ -4326,9 +4446,9 @@ Computing Machinery]
             \ifx\@acmPrice\@empty\else\ \$\@acmPrice\fi\\
             \@formatdoi{\@acmDOI}%
           \else % Conference
-             ACM~ISBN~\@acmISBN
-             \ifx\@acmPrice\@empty.\else\dots\$\@acmPrice\fi\\
-             \@formatdoi{\@acmDOI}%
+            \ifx\@acmISBN\@empty\else ACM~ISBN~\@acmISBN
+            \ifx\@acmPrice\@empty.\else\dots\$\@acmPrice\fi\\\fi
+            \ifx\@acmDOI\@empty\else\@formatdoi{\@acmDOI}\fi%
           \fi
         \fi
       \fi}
@@ -5120,26 +5240,32 @@ Computing Machinery]
 % \changes{v1.17}{2016/07/10}{Added \cs{nobreak}}
 % \changes{v1.31}{2017/03/04}{Disabled linebreak}
 % \changes{v1.34}{2017/04/09}{Deleted DOI from doi numbers}
+% \changes{v1.44}{2017/07/30}{If the paper has just one page, use
+% `page' instead of `pages'}
 %   Print bibcitation format
 %    \begin{macrocode}
-\def\@mkbibcitation{\bgroup
+\def\@mkbibcitation{\bgroup  
+  \def\@pages@word{\ifnum\getrefnumber{TotPages}=1\relax page\else pages\fi}%
   \def\footnotemark{}%
   \def\\{\unskip{} \ignorespaces}%
   \def\footnote{\ClassError{\@classname}{Please do note use footnotes
       inside \string\title{} or \string\author{} command! Use
       \string\titlenote{} or \string\authornote{} instead!}}%
+  \def\@article@string{\ifx\@acmArticle\@empty{\ }\else,
+    Article~\@acmArticle\ \fi}%
   \par\medskip\small\noindent{\bfseries ACM Reference Format:}\par\nobreak
   \noindent\authors. \@acmYear. \@title. 
   \if@ACM@journal
      \textit{\@journalNameShort}
-     \@acmVolume, \@acmNumber, Article~\@acmArticle\ (\@acmPubDate), 
-     \ref{TotPages}~pages.
+     \@acmVolume, \@acmNumber \@article@string (\@acmPubDate), 
+     \ref{TotPages}~\@pages@word.
   \else
-     In \textit{Proceedings of \acmConference@name, \acmConference@venue,
-       \acmConference@date
-       \ifx\acmConference@name\acmConference@shortname\else
-         \ (\acmConference@shortname)\fi
-         ,} \ref{TotPages}~pages.
+     In \textit{\@acmBooktitle}%
+     \ifx\@acmEditors\@empty\textit{.}\else
+       \andify\@acmEditors\textit{, }\@acmEditors~\@editorsAbbrev.%
+     \fi\ 
+     ACM, New York, NY, USA%
+       \@article@string\unskip, \ref{TotPages}~\@pages@word.
   \fi\par
   \noindent\@formatdoi{\@acmDOI}
 \par\egroup}
@@ -5416,9 +5542,11 @@ Computing Machinery]
 % \end{macro}
 %
 % \begin{macro}{\@folioblob}
+% \changes{v1.44}{2017/08/11}{Suppress the blob if acmArticleSeq is empty}
 %   The macro to typeset the folio blob.
 %    \begin{macrocode}
-\def\@folioblob{\@tempcnta=\@acmArticleSeq\relax
+\def\@folioblob{\@tempcnta=0\@acmArticleSeq\relax
+  \ifnum\@tempcnta=0\relax\else
 %    \end{macrocode}
 % First, we calculate \cs{@acmArticleSeq} modulo \cs{@folio@max}
 %    \begin{macrocode}
@@ -5441,7 +5569,7 @@ Computing Machinery]
         \parbox{\@folio@wd}{%
           \centering
           \textcolor{white}{\LARGE\bfseries\sffamily\@acmArticle}}}}
-  \end{picture}}
+  \end{picture}\fi}
 
 %    \end{macrocode}
 %
@@ -5500,6 +5628,24 @@ Computing Machinery]
 }
 %    \end{macrocode}
 %
+% \end{macro}
+%
+% \begin{macro}{\ACM@restore@pagestyle}
+% \changes{v1.44}{2017/07/30}{Added macro}
+% The following code by Ross Moore protects against changes by
+% |totpages| package:
+%    \begin{macrocode}
+\let\ACM@ps@plain\ps@plain
+\let\ACM@ps@myheadings\ps@myheadings
+\let\ACM@ps@headings\ps@headings
+\def\ACM@restore@pagestyle{%
+  \let\ps@plain\ACM@ps@plain
+  \let\ps@myheadings\ACM@ps@myheadings
+  \let\ps@headings\ACM@ps@headings}
+\AtBeginDocument{\ACM@restore@pagestyle}
+%    \end{macrocode}
+% 
+%   
 % \end{macro}
 %
 %
@@ -5642,10 +5788,18 @@ Computing Machinery]
 %\subsection{Theorems}
 %\label{sec:theorems}
 %
-%
+% The conditional loading
+%    \begin{macrocode}
+\if@ACM@acmthm
+  \RequirePackage{acmthm}
+\fi
+%    \end{macrocode}
+% 
 % \begin{macro}{\@acmplainbodyfont}
 %   The font to typeset the |acmplain| theorem style body.
 %    \begin{macrocode}
+%</class>
+%<*acmthm>
 \def\@acmplainbodyfont{\itshape}
 %    \end{macrocode}
 %
@@ -5842,10 +5996,11 @@ Computing Machinery]
 }{%
   \popQED\endtrivlist\@endpefalse
 }
+%</acmthm>
+%<*class>
 %    \end{macrocode}
 %
 % \end{macro}
-%
 %
 %
 %\subsection{Acknowledgments}
